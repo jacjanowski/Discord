@@ -3,7 +3,7 @@ var catMe = require('cat-me');
 var knockknock = require('knock-knock-jokes')
 const bot     = new Discord.Client();
 
-const TOKEN = 'NzMyNzIzMTYyNTI5Mzk4ODg1.XxShQA.LOW7Wyn7CvWx1NhhVmHvVu58THA';
+const TOKEN = 'NzMyNzIzMTYyNTI5Mzk4ODg1.Xxj2Rw.3dqSIeUEOyB7QRwgo2Qnnt-c3oA';
 const PREFIX = '!';
 
 function getRandomInt(min, max) {
