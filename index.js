@@ -1,6 +1,10 @@
-const Discord = require('discord.js');
-var catMe = require('cat-me');
-var knockknock = require('knock-knock-jokes')
+const Discord = require('discord.js'),
+catMe         = require('cat-me'),
+request       = require('request'),
+knockknock    = require('knock-knock-jokes'),
+rp            = require('request-promise'),
+$             = require('cheerio');
+
 const bot     = new Discord.Client();
 
 const TOKEN = 'NzMyNzIzMTYyNTI5Mzk4ODg1.Xxj2Rw.3dqSIeUEOyB7QRwgo2Qnnt-c3oA';
@@ -18,6 +22,7 @@ function getRandomInt(min, max) {
 
 bot.on('ready', ()=>{
     console.log("WE ARE RUNNING");
+    
 });
 
 
@@ -98,7 +103,7 @@ bot.on('message', message => {
                 break;
             }
 
-            let msgArgs = args.slice(3).join(" ");
+            let msgArgs = args.slice(1).join(" ");
             console.log(msgArgs);
             message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
                 messageReaction.react("👍");
@@ -119,7 +124,7 @@ bot.on('message', message => {
                 .setAuthor(Me.username + " #" + Me.discriminator)
                 .setImage(Me.displayAvatarURL());
                 message.channel.send(avatarEmbed);
-                break;
+                
             } 
             else {
                 const user = message.mentions.users.first();
@@ -130,7 +135,23 @@ bot.on('message', message => {
                 message.channel.send(personEmbed);
            
             }
+
+            break;
+
+        case 'fact':
+            
+            var url = request('http://randomfactgenerator.net/')
+            rp(url)
+                .then(function(html) {
+                    message.channel.send($('#z', html).text());
+                    
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
         
+
+            break;
         }
         
 });
