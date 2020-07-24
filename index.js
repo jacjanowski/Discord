@@ -83,7 +83,7 @@ bot.on('message', message => {
         case 'help':
             const embed = new Discord.MessageEmbed()
             .setTitle("Here is a list of commands") // Calling method setTitle on constructor. 
-            .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.')
+            .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n')
             .setColor(0x34b7eb)
             message.channel.send(embed);
             break;
@@ -98,8 +98,8 @@ bot.on('message', message => {
                 break;
             }
 
-            let msgArgs = args.slice(1).join(" ");
-            
+            let msgArgs = args.slice(3).join(" ");
+            console.log(msgArgs);
             message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
                 messageReaction.react("👍");
                 messageReaction.react("👎");
@@ -110,28 +110,25 @@ bot.on('message', message => {
             break;
 
         case 'avi':
-            const aviEmbed = new Discord.MessageEmbed()
-            .setColor(0xb02dc4)
-            .setTitle("View Avitar")
-            .setDescription("Do \'!avi (name goes here)\'")
-            .setThumbnail(bot.user.displayAvatarURL());
-
+            
             if(!args[1]) {
-                message.channel.send(aviEmbed);
+
+                let Me = message.author;
+                const avatarEmbed = new Discord.MessageEmbed()
+                .setColor(0xb02dc4)
+                .setAuthor(Me.username + " #" + Me.discriminator)
+                .setImage(Me.displayAvatarURL());
+                message.channel.send(avatarEmbed);
                 break;
             } 
             else {
-            
-                let personName = args.slice(1).join(" ");
-                console.log(personName);
-                bot.author = personName;
-                const aviEmbedOthers = new Discord.MessageEmbed()
-                .setColor(0xb04ef4)
-                .setTitle("View Avitar")
-                .setDescription("Do \'!avi (name goes here)\'")
-                .setThumbnail(bot.author.displayAvatarURL());
-                message.channel.send(aviEmbedOthers);
-                break;
+                const user = message.mentions.users.first();
+                const personEmbed = new Discord.MessageEmbed()
+                .setColor(0xb02dc4)
+                .setAuthor(user.username + " #" + user.discriminator)
+                .setImage(user.displayAvatarURL());
+                message.channel.send(personEmbed);
+           
             }
         
         }
