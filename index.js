@@ -1,9 +1,9 @@
 const Discord = require('discord.js'),
 catMe         = require('cat-me'),
 request       = require('request'),
-knockknock    = require('knock-knock-jokes'),
-rp            = require('request-promise'),
-$             = require('cheerio');
+knockknock    = require('knock-knock-jokes');
+// rp            = require('request-promise'),
+// $             = require('cheerio');
 
 const bot     = new Discord.Client();
 
@@ -104,7 +104,6 @@ bot.on('message', message => {
             }
 
             let msgArgs = args.slice(1).join(" ");
-            console.log(msgArgs);
             message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
                 messageReaction.react("👍");
                 messageReaction.react("👎");
@@ -138,20 +137,7 @@ bot.on('message', message => {
 
             break;
 
-        case 'fact':
-            
-            var url = request('http://randomfactgenerator.net/')
-            rp(url)
-                .then(function(html) {
-                    message.channel.send($('#z', html).text());
-                    
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
-        
-
-            break;
+       
         }
         
 });
