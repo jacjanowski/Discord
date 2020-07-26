@@ -1,9 +1,9 @@
 const Discord = require('discord.js'),
 catMe         = require('cat-me'),
 request       = require('request'),
-knockknock    = require('knock-knock-jokes');
-// rp            = require('request-promise'),
-// $             = require('cheerio');
+knockknock    = require('knock-knock-jokes'),
+rp            = require('request-promise'),
+cheerio             = require('cheerio');
 
 const bot     = new Discord.Client();
 
@@ -104,6 +104,7 @@ bot.on('message', message => {
             }
 
             let msgArgs = args.slice(1).join(" ");
+            console.log(msgArgs);
             message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
                 messageReaction.react("👍");
                 messageReaction.react("👎");
@@ -137,9 +138,40 @@ bot.on('message', message => {
 
             break;
 
+
+            case 'fact':
+
+                    request('http://randomfactgenerator.net/', function (error, response, html) {
+                        if (!error && response.statusCode == 200) {
+                          var $ = cheerio.load(html);
+                          var facts = [];
+                          $('#z').each(function(i, element){
+                            var a = $(this).text();
+                            facts.push(a);
+                          });
+
+                          console.log(facts[0]);
+                          var myString = facts[0].substring(0, facts[0].lastIndexOf(" "));
+                          
+                          const factEmbed = new Discord.MessageEmbed()
+                          .setColor(0xba394)
+                          .setAuthor("Random Fact")
+                          .setDescription(facts[0].replace("\nTweet", ""));
+                          message.channel.send(factEmbed);
+
+                        }
+                      });
+
+                
+            break;
        
         }
+
+
+
         
 });
+
+
 
 bot.login(TOKEN);
