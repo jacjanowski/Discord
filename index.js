@@ -88,8 +88,9 @@ bot.on('message', message => {
         case 'help':
             const embed = new Discord.MessageEmbed()
             .setTitle("Here is a list of commands") // Calling method setTitle on constructor. 
-            .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n')
+            .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n'+ "**" + '!fact' + "**" + "- Random fact is displayed.\n")
             .setColor(0x34b7eb)
+            .setThumbnail('https://img.imageboss.me/poisonorg/cdn/~/media/images/poisonorg/get-help-for-poisonings.jpg');
             message.channel.send(embed);
             break;
         case 'poll':
@@ -150,13 +151,15 @@ bot.on('message', message => {
                             facts.push(a);
                           });
 
-                          console.log(facts[0]);
+                          
                           var myString = facts[0].substring(0, facts[0].lastIndexOf(" "));
                           
                           const factEmbed = new Discord.MessageEmbed()
                           .setColor(0xba394)
-                          .setAuthor("Random Fact")
-                          .setDescription(facts[0].replace("\nTweet", ""));
+                          .setAuthor("Did you know?")
+                          .setDescription(facts[0].replace("\nTweet", ""))
+                          .setFooter("This fact was pulled from randomfactgenerator.net", "")
+                          .setThumbnail("https://media.wnyc.org/i/800/0/c/85/photologue/photos/fact%20check.jpg");
                           message.channel.send(factEmbed);
 
                         }
@@ -164,7 +167,8 @@ bot.on('message', message => {
 
                 
             break;
-       
+
+
         }
 
 
