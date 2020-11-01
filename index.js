@@ -49,8 +49,8 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
 
     bot.on('message', message => {
         if (message.author.bot) return;
-        if (!message.content.startsWith(PREFIX)) return;
-        if (message.content.startsWith(PREFIX + 'ping')) {
+        if (!message.content.startsWith(config.PREFIX)) return;
+        if (message.content.startsWith(config.PREFIX + 'ping')) {
             message.channel.send({embed: {
                 color: 0x2ed32e,
                 fields: [{
@@ -66,10 +66,10 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
 
         
         let args = message.content.toLowerCase();
-        if(args[0] === PREFIX) {
+        if(args[0] === config.PREFIX) {
 
             console.log(args.substring(1,args.length));
-            console.log("PREFIX" + args);
+            console.log("config.PREFIX" + args);
                 
             switch(args.substring(1,args.length)){
 
@@ -186,4 +186,4 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
 
 
 
-bot.login(TOKEN);
+bot.login(config.TOKEN);
