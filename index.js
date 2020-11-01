@@ -7,8 +7,7 @@ cheerio             = require('cheerio');
 
 const bot     = new Discord.Client();
 
-const TOKEN = 'NzMyNzIzMTYyNTI5Mzk4ODg1.Xxj2Rw.3dqSIeUEOyB7QRwgo2Qnnt-c3oA';
-const PREFIX = '!';
+const config = require('./config.json');
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -60,121 +59,130 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
               }
              ],
         }
-        })
-        }})
+       })
+    }})
 
-bot.on('message', message => {
-    
-    let args = message.content.toLowerCase().substring(PREFIX.length).split(" ");
-    
+    bot.on('message', message => {
 
-    switch(args[0]){
-
-        case 'roll':
-            message.channel.send('```The dice rolled a: ' + getRandomInt(1,6) + '```');
-            break;
         
-        case 'cat':
-            message.channel.send('```' + catMe() + '```');
-            break;
+        let args = message.content.toLowerCase();
+        if(args[0] === PREFIX) {
 
-        case 'joke':
-            message.channel.send('```' +  knockknock() + '```');
-            break;
-        case 'gl':
-            var sentences = ["you are gonna ace this! you know we all believe in you, you rockstar ;)", "I can't wait for you to rock this exam! Good luck, champ!", "I never doubted your skills, you make us all look like a shrimp compared to you!", "You probably didn't study for this...but lucky for you, you got this in the BAG!", "Try your best! In the end, we're gonna be alright (:", "No matter how hard this will be, with your knowledge, this is gonna be a smooooooth ride."];
-            message.channel.send(sentences[getRandomInt(0,5)]);
-            break;
-        case 'help':
-            const embed = new Discord.MessageEmbed()
-            .setTitle("Here is a list of commands") // Calling method setTitle on constructor. 
-            .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n'+ "**" + '!fact' + "**" + "- Random fact is displayed.\n")
-            .setColor(0x34b7eb)
-            .setThumbnail('https://img.imageboss.me/poisonorg/cdn/~/media/images/poisonorg/get-help-for-poisonings.jpg');
-            message.channel.send(embed);
-            break;
-        case 'poll':
-            const pollEmbed = new Discord.MessageEmbed()
-            .setColor(0xb02dc4)
-            .setTitle("Initiate Poll")
-            .setDescription("Do '!poll (question goes here)' to initiate a 'yes' or 'no' poll.")
+            console.log(args.substring(1,args.length));
+            console.log("PREFIX" + args);
+                
+            switch(args.substring(1,args.length)){
 
-            if(!args[1]) {
-                message.channel.send(pollEmbed);
+                case 'roll':
+                    message.channel.send('```The dice rolled a: ' + getRandomInt(1,6) + '```');
+                    break;
+                
+                case 'cat':
+                    message.channel.send('```' + catMe() + '```');
+                    break;
+
+                case 'joke':
+                    message.channel.send('```' +  knockknock() + '```');
+                    break;
+                case 'gl':
+                    var sentences = ["you are gonna ace this! you know we all believe in you, you rockstar ;)", "I can't wait for you to rock this exam! Good luck, champ!", "I never doubted your skills, you make us all look like a shrimp compared to you!", "You probably didn't study for this...but lucky for you, you got this in the BAG!", "Try your best! In the end, we're gonna be alright (:", "No matter how hard this will be, with your knowledge, this is gonna be a smooooooth ride."];
+                    message.channel.send(sentences[getRandomInt(0,5)]);
+                    break;
+                case 'help':
+                    const embed = new Discord.MessageEmbed()
+                    .setTitle("Here is a list of commands") // Calling method setTitle on constructor. 
+                    .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n'+ "**" + '!fact' + "**" + "- Random fact is displayed.\n")
+                    .setColor(0x34b7eb)
+                    .setThumbnail('https://img.imageboss.me/poisonorg/cdn/~/media/images/poisonorg/get-help-for-poisonings.jpg');
+                    message.channel.send(embed);
+                    break;
+                case 'poll':
+                    const pollEmbed = new Discord.MessageEmbed()
+                    .setColor(0xb02dc4)
+                    .setTitle("Initiate Poll")
+                    .setDescription("Do '!poll (question goes here)' to initiate a 'yes' or 'no' poll.")
+
+                    if(!args[1]) {
+                        message.channel.send(pollEmbed);
+                        break;
+                    }
+
+                    let msgArgs = args.slice(1).join(" ");
+                    console.log(msgArgs);
+                    message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
+                        messageReaction.react("👍");
+                        messageReaction.react("👎");
+                        messageReaction.react("❓");
+                        message.delete({timeout: 1}).catch(console.error);
+                    });
+                
+                    break;
+
+                case 'avi':
+                    
+                    if(!args[1]) {
+
+                        let Me = message.author;
+                        const avatarEmbed = new Discord.MessageEmbed()
+                        .setColor(0xb02dc4)
+                        .setAuthor(Me.username + " #" + Me.discriminator)
+                        .setImage(Me.displayAvatarURL());
+                        message.channel.send(avatarEmbed);
+                        
+                    } 
+                    else {
+                        const user = message.mentions.users.first();
+                        const personEmbed = new Discord.MessageEmbed()
+                        .setColor(0xb02dc4)
+                        .setAuthor(user.username + " #" + user.discriminator)
+                        .setImage(user.displayAvatarURL());
+                        message.channel.send(personEmbed);
+                
+                    }
+
+                    break;
+
+
+                case 'fact':
+
+                        request('http://randomfactgenerator.net/', function (error, response, html) {
+                            if (!error && response.statusCode == 200) {
+                            var $ = cheerio.load(html);
+                            var facts = [];
+                            $('#z').each(function(i, element){
+                                var a = $(this).text();
+                                facts.push(a);
+                            });
+
+                            
+                            var myString = facts[0].substring(0, facts[0].lastIndexOf(" "));
+                            
+                            const factEmbed = new Discord.MessageEmbed()
+                            .setColor(0xba394)
+                            .setAuthor("Did you know?")
+                            .setDescription(facts[0].replace("\nTweet", ""))
+                            .setFooter("This fact was pulled from randomfactgenerator.net", "")
+                            .setThumbnail("https://media.wnyc.org/i/800/0/c/85/photologue/photos/fact%20check.jpg");
+                            message.channel.send(factEmbed);
+
+                            }
+                        });
+
+                    
                 break;
-            }
-
-            let msgArgs = args.slice(1).join(" ");
-            console.log(msgArgs);
-            message.channel.send("📋 " + "**" + msgArgs + "**").then(messageReaction => {
-                messageReaction.react("👍");
-                messageReaction.react("👎");
-                messageReaction.react("❓");
-                message.delete({timeout: 1}).catch(console.error);
-            });
-           
-            break;
-
-        case 'avi':
-            
-            if(!args[1]) {
-
-                let Me = message.author;
-                const avatarEmbed = new Discord.MessageEmbed()
-                .setColor(0xb02dc4)
-                .setAuthor(Me.username + " #" + Me.discriminator)
-                .setImage(Me.displayAvatarURL());
-                message.channel.send(avatarEmbed);
-                
-            } 
-            else {
-                const user = message.mentions.users.first();
-                const personEmbed = new Discord.MessageEmbed()
-                .setColor(0xb02dc4)
-                .setAuthor(user.username + " #" + user.discriminator)
-                .setImage(user.displayAvatarURL());
-                message.channel.send(personEmbed);
-           
-            }
-
-            break;
 
 
-            case 'fact':
+                    
+                    }
 
-                    request('http://randomfactgenerator.net/', function (error, response, html) {
-                        if (!error && response.statusCode == 200) {
-                          var $ = cheerio.load(html);
-                          var facts = [];
-                          $('#z').each(function(i, element){
-                            var a = $(this).text();
-                            facts.push(a);
-                          });
+              }
+              else {
 
-                          
-                          var myString = facts[0].substring(0, facts[0].lastIndexOf(" "));
-                          
-                          const factEmbed = new Discord.MessageEmbed()
-                          .setColor(0xba394)
-                          .setAuthor("Did you know?")
-                          .setDescription(facts[0].replace("\nTweet", ""))
-                          .setFooter("This fact was pulled from randomfactgenerator.net", "")
-                          .setThumbnail("https://media.wnyc.org/i/800/0/c/85/photologue/photos/fact%20check.jpg");
-                          message.channel.send(factEmbed);
-
-                        }
-                      });
-
-                
-            break;
-
-
-        }
-
-
-
+              }
         
-});
+
+                
+     });
 
 
 
