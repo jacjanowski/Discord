@@ -90,7 +90,17 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                 case 'help':
                     const embed = new Discord.MessageEmbed()
                     .setTitle("Here is a list of commands") // Calling method setTitle on constructor. 
-                    .setDescription("**" + '!ping' + "**" + '- Show current ping\n' + "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + "**" + "!joke" + "**" + "- knock knock joke\n" + "**" + '!help'+ "**" +  '- shows a list of commands.\n' + "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' +  "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n'+ "**" + '!fact' + "**" + "- Random fact is displayed.\n")
+                    .setDescription(
+                        "**" + '!ping' + "**" + '- Show current ping\n' + 
+                         "**" + '!roll' + "**" + '- Rolls the die (1-6)\n' + 
+                         "**"+ '!cat'  +"**"+ '- random cat pictures lol\n' + 
+                         "**" + "!joke" + "**" + "- knock knock joke\n" + 
+                         "**" + '!help'+ "**" +  '- shows a list of commands.\n' +
+                          "**" + '!gl'+ "**" + ' - sends you a good luck sentence!\n' + 
+                           "**" + '!poll' + "**" + '- Initiate a \'yes\' or \'no\' poll.\n' + 
+                           "**" + '!avi' + "**" + '- view someone elses by doing \'!avi (@person-name)\'\n'+ 
+                           "**" + '!fact' + "**" + "- Random fact is displayed.\n" + 
+                           "**" + '!matt' + "**" + "- Pictures of the one and only.\n")
                     .setColor(0x34b7eb)
                     .setThumbnail('https://img.imageboss.me/poisonorg/cdn/~/media/images/poisonorg/get-help-for-poisonings.jpg');
                     message.channel.send(embed);
