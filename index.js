@@ -73,7 +73,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
             switch(args.substring(1,args.length)){
 
                 case 'roll':
-                    message.channel.send('```The dice rolled a: ' + getRandomInt(1,6) + '```');
+                    message.channel.send('```The dice rolled a: ' + getRandomInt(1,7) + '```');
                     break;
                 
                 case 'cat':
@@ -142,14 +142,131 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                     break;
 
                 case 'matt':
+                    let files = [
+                        './mattpic.jpg', 
+                        './mattpic2.jpg', 
+                        './mattpic3.jpg',
+                        './mattpic4.jpg',
+                        './mattpic5.jpg',
+                        './mattpic6.jpg', 
+                        './mattpic7.jpg', 
+                        './mattpic8.jpg',
+                        './mattpic9.jpg',
+                        './mattpic10.jpg',
+                        './mattpic11.jpg', 
+                        './mattpic12.jpg', 
+                        './mattpic13.jpg',
+                        './mattpic14.jpg'
+                        
+                    ];
+                    let imgs = [
+                        'attachment://mattpic.jpg', 
+                        'attachment://mattpic2.jpg',
+                        'attachment://mattpic3.jpg',
+                        'attachment://mattpic4.jpg',
+                        'attachment://mattpic5.jpg',
+                        'attachment://mattpic6.jpg', 
+                        'attachment://mattpic7.jpg',
+                        'attachment://mattpic8.jpg',
+                        'attachment://mattpic9.jpg',
+                        'attachment://mattpic10.jpg',
+                        'attachment://mattpic11.jpg',
+                        'attachment://mattpic12.jpg',
+                        'attachment://mattpic13.jpg',
+                        'attachment://mattpic14.jpg'
+                ];
 
-                    const exampleEmbed = new Discord.MessageEmbed()
-                    .setTitle('I see someone cuteeeeee')
-                    .setColor(0x009155)
-                    .attachFiles(['./imgs/mattpic.jpg'], ['./mattpic2.jpg'])
-                    .setImage('attachment://mattpic.jpg', 'attachment://mattpic2.jpg');
 
-                    message.channel.send(exampleEmbed);
+                    let embeds = [];
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('Oh BROnaldo')
+                        .setColor(0x009155)
+                        .attachFiles(files[0])
+                        .setImage(imgs[0])
+                        .setFooter('Just couldn\'t contain it'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('Australians > ')
+                        .setColor(0x009155)
+                        .attachFiles(files[1])
+                        .setImage(imgs[1])
+                        .setFooter('Luke stays winning, am I right?'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('Talking to \'Libtards\' like')
+                        .setColor(0x009155)
+                        .attachFiles(files[2])
+                        .setImage(imgs[2])
+                        .setFooter('Matt wins this argument'));
+                    embeds.push(new Discord.MessageEmbed()
+                    .setTitle('😍😍😍')
+                        .setColor(0x009155)
+                        .attachFiles(files[3])
+                        .setImage(imgs[3])
+                        .setFooter('Such dreamy eyess'));
+                    embeds.push(new Discord.MessageEmbed()
+                    .setTitle('Hold on, let me get some water.')
+                        .setColor(0x009155)
+                        .attachFiles(files[4])
+                        .setImage(imgs[4])
+                        .setFooter('Look at that shelf he\'s carrying'));
+
+                        embeds.push(new Discord.MessageEmbed()
+                        .setTitle('Get to cleaning!')
+                        .setColor(0x009155)
+                        .attachFiles(files[5])
+                        .setImage(imgs[5])
+                        .setFooter('I dig the visor though'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('You said what, you idiot?')
+                        .setColor(0x009155)
+                        .attachFiles(files[6])
+                        .setImage(imgs[6])
+                        .setFooter('👀'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('MMmmmmm...')
+                        .setColor(0x009155)
+                        .attachFiles(files[7])
+                        .setImage(imgs[7])
+                        .setFooter('shoe game >'));
+                    embeds.push(new Discord.MessageEmbed()
+                    .setTitle('Looking as if he\'s in heaven')
+                        .setColor(0x009155)
+                        .attachFiles(files[8])
+                        .setImage(imgs[8])
+                        .setFooter('😇😇😇'));
+                    embeds.push(new Discord.MessageEmbed()
+                    .setTitle('Sam listening as if he cares')
+                        .setColor(0x009155)
+                        .attachFiles(files[9])
+                        .setImage(imgs[9])
+                        .setFooter('Sam: I just want to eat my mozzarella stick.'));
+                    
+
+                        embeds.push(new Discord.MessageEmbed()
+                        .setTitle('This should be LinkedIn profile picture')
+                        .setColor(0x009155)
+                        .attachFiles(files[10])
+                        .setImage(imgs[10])
+                        .setFooter('2 headsets?? He can hear you crouch walking from spawn.'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('UNITE!!')
+                        .setColor(0x009155)
+                        .attachFiles(files[11])
+                        .setImage(imgs[11])
+                        .setFooter('How warm are his hands though?'));
+                    embeds.push(new Discord.MessageEmbed()
+                        .setTitle('The original photo!')
+                        .setColor(0x009155)
+                        .attachFiles(files[12])
+                        .setImage(imgs[12])
+                        .setFooter('What\'s up Abi!'));
+                    embeds.push(new Discord.MessageEmbed()
+                    .setTitle('This tastes just like ____________')
+                        .setColor(0x009155)
+                        .attachFiles(files[13])
+                        .setImage(imgs[13])
+                        .setFooter('Answer in chat 😂'));
+
+                    message.channel.send(embeds[getRandomInt(0,14)]); 
                         
 
 
