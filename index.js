@@ -8,7 +8,6 @@ cheerio             = require('cheerio');
 const bot     = new Discord.Client();
 
 const config = require('./config.json');
-
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -142,6 +141,20 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
 
                     break;
 
+                case 'matt':
+
+                    const exampleEmbed = new Discord.MessageEmbed()
+                    .setTitle('I see someone cuteeeeee')
+                    .setColor(0x009155)
+                    .attachFiles(['./imgs/mattpic.jpg'], ['./mattpic2.jpg'])
+                    .setImage('attachment://mattpic.jpg', 'attachment://mattpic2.jpg');
+
+                    message.channel.send(exampleEmbed);
+                        
+
+
+
+                break;
 
                 case 'fact':
 
