@@ -120,7 +120,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
 
                     case 'avi':
             
-                        if(!args[1]) {
+                        if(!messageArray[1]) {
             
                             let Me = message.author;
                             const avatarEmbed = new Discord.MessageEmbed()
@@ -131,11 +131,13 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                             break;
                         } 
                         else {
-                            const user = message.mentions.users.first();
+                            const userID = message.mentions.users.first();
+                            
+                            console.log(userID);
                             const personEmbed = new Discord.MessageEmbed()
                             .setColor(0xb02dc4)
-                            .setAuthor(user.username + " #" + user.discriminator)
-                            .setImage(user.displayAvatarURL());
+                            .setAuthor(userID.username + " #" + userID.discriminator)
+                            .setImage(userID.displayAvatarURL());
                             message.channel.send(personEmbed);
                        
                         }
