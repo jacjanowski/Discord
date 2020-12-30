@@ -304,9 +304,21 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                     
                 break;
 
+                case 'movie':
+                    request('http://omdbapi.com/?t=forrest+gump&apikey=thewdb', function(error, response, body){
+                        if(!error && response.statusCode == 200) {
+                            var data = JSON.parse(body);
+                            console.log(data);
+                        } else {
+                            console.log('some thing went wrong.')
+                        }
+                    });
+
+                    break;
+
 
                     
-                    }
+                }
 
               }
               else {
