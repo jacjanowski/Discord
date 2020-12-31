@@ -128,6 +128,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                             .setAuthor(Me.username + " #" + Me.discriminator)
                             .setImage(Me.displayAvatarURL());
                             message.channel.send(avatarEmbed);
+                            message.delete({timeout: 1}).catch(console.error);
                             break;
                         } 
                         else {
@@ -139,7 +140,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                             .setAuthor(userID.username + " #" + userID.discriminator)
                             .setImage(userID.displayAvatarURL());
                             message.channel.send(personEmbed);
-                       
+                            message.delete({timeout: 1}).catch(console.error);
                         }
 
                     break;
@@ -270,14 +271,14 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                         .setFooter('Answer in chat 😂'));
 
                     message.channel.send(embeds[getRandomInt(0,14)]); 
-                        
+                    message.delete({timeout: 1}).catch(console.error);
 
 
 
                 break;
 
                 case 'fact':
-
+                        
                         request('http://randomfactgenerator.net/', function (error, response, html) {
                             if (!error && response.statusCode == 200) {
                             var $ = cheerio.load(html);
@@ -297,6 +298,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                             .setFooter("This fact was pulled from randomfactgenerator.net", "")
                             .setThumbnail("https://media.wnyc.org/i/800/0/c/85/photologue/photos/fact%20check.jpg");
                             message.channel.send(factEmbed);
+                            message.delete({timeout: 1}).catch(console.error);
 
                             }
                         });
@@ -305,13 +307,40 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                 break;
 
                 case 'movie':
-                    request('http://omdbapi.com/?t=forrest+gump&apikey=thewdb', function(error, response, body){
+                    let movieSearchQuery = messageArray.slice(1,messageArray.length).join('+');
+                    request('http://omdbapi.com/?t='+movieSearchQuery+'&apikey=thewdb', function(error, response, body){
                         if(!error && response.statusCode == 200) {
                             var data = JSON.parse(body);
-                            console.log(data);
+                            
+                            const movieEmbed = new Discord.MessageEmbed()
+                            .setColor('#fcf403')
+                            .setTitle(data.Title)
+                            .setAuthor('Link to code', 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png', 'https://github.com/jacjanowski/Discord')
+                            .setImage(data.Poster)
+                            .setDescription(data.Plot)
+                                                        
+                            .addFields(
+                                { name: 'Actors', value: data.Actors },
+                                { name: 'Genre', value: data.Genre, inline: true },
+                                { name: 'Time', value: data.Runtime, inline: true },
+                                { name: data.Ratings[1].Source + '🍅', value: data.Ratings[1].Value, inline: true }
+                            )
+                            .setFooter('Directed by ' + data.Director)
+                            
+                            message.channel.send(movieEmbed).then(messageReaction => {
+                                messageReaction.react('🎥');
+                            });
+
                         } else {
-                            console.log('some thing went wrong.')
+                            const errorEmbed = new Discord.MessageEmbed()
+                            .setColor('#fc0303')
+                            .setTitle('Issue with search results. Make sure there\'s no type and try again.').then(errorMessage=>{
+                                errorEmbed.delete({timeout: 1}).catch(console.error);
+                            })
+
                         }
+                        message.delete({timeout: 1}).catch(console.error);
+
                     });
 
                     break;
@@ -321,9 +350,7 @@ bot.on("guildMemberAdd", (member) => { // Check out previous chapter for informa
                 }
 
               }
-              else {
-
-              }
+              
         
 
                 
