@@ -321,9 +321,17 @@ bot.on('message', message => {
                             message.channel.send(errorEmbed);
 
                         } else {
-
-                            if (Object.keys(data.Ratings).length === 0) {   
-                                message.channel.send('No ratings are able to be displayed.')
+                            
+                            if (Object.keys(data.Ratings).length === 0 && ( 
+                                data.Released === 'N/A' ||
+                                data.Runtime === 'N/A' ||
+                                data.Actors === 'N/A' ||
+                                data.Plot === 'N/A' ||
+                                data.Poster === 'N/A' ||
+                                data.Genre === 'N/A' || 
+                                data.Director === 'N/A' ||
+                                data.Rated === 'N/A')) {   
+                                message.channel.send('There\'s barely enough information for this movie. Don\'t watch it.');
                                 return;
                             } else {
                                 const movieEmbed = new Discord.MessageEmbed()
@@ -333,10 +341,12 @@ bot.on('message', message => {
                                     .setImage(data.Poster)
                                     .setDescription(data.Plot)
                                     .addFields(
-                                        { name: 'Actors', value: data.Actors },
-                                        { name: 'Genre', value: data.Genre, inline: true },
+                                        { name: 'Actors', value: data.Actors, inline: true },
                                         { name: 'Time', value: data.Runtime, inline: true },
-                                        { name: data.Ratings[0].Source, value: data.Ratings[0].Value, inline: true }
+                                        { name: 'Genre', value: data.Genre, inline: true },                      
+                                        { name: data.Ratings[0].Source, value: data.Ratings[0].Value, inline: true },
+                                        { name: 'Rated', value: data.Rated, inline: true },
+                                        { name: 'Date Released', value: data.Released, inline: true }
                                     )
                                     .setFooter('Directed by ' + data.Director)
 
