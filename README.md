@@ -1,6 +1,4 @@
 # Discord Bot
-
-## Usage
 Information provider
 - This bot is programmed using Discord.js connecting to the Discord API.
 - Javascript with NodeJS
